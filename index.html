@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EL AL · BUSINESS CIRCLE מדריך תימחור וכרטוס</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800&family=Heebo:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            DEFAULT: '#1bb0ce',
+                            deep: '#0e7c93',
+                            soft: '#e7f6f9'
+                        },
+                        ink: {
+                            DEFAULT: '#0f1b22',
+                            muted: '#3a4a52',
+                            light: '#6a7a82'
+                        },
+                        paper: '#f5f8f9',
+                        term: {
+                            bg: '#0c1714',
+                            bar: '#16241f',
+                            green: '#7fe9b9',
+                            dim: '#5a7d6e'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Heebo', 'system-ui', 'sans-serif'],
+                        heading: ['Rubik', 'system-ui', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    boxShadow: {
+                        'soft': '0 1px 2px rgba(15,27,34,.04), 0 12px 32px -16px rgba(15,27,34,.18)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Base Overrides */
+        ::selection { background: #1bb0ce; color: #fff; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .text-balance { text-wrap: balance; }
+        
+        /* Smooth transitions for Dark Mode */
+        body { transition: background-color 0.3s ease, color 0.3s ease; }
+        
+        /* Tab panel animation */
+        .tab-panel { display: none; }
+        .tab-panel.active { display: block; animation: fadeIn 0.3s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Tooltips */
+        .has-tooltip {
+            position: relative;
+            cursor: help;
+            text-decoration: underline;
+            text-decoration-style: dotted;
+            text-underline-offset: 4px;
+            color: #0e7c93;
+            font-weight: 600;
+        }
+        .dark .has-tooltip { color: #1bb0ce; }
+        
+        .has-tooltip::after {
+            content: attr(data-tip);
+            position: absolute;
+            bottom: 130%;
+            left: 50%;
+            transform: translateX(-50%) translateY(4px);
+            background: #0f1b22;
+            color: #fff;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12.5px;
+            font-family: "Heebo", sans-serif;
+            font-weight: 400;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.2s ease-out;
+            z-index: 100;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .dark .has-tooltip::after {
+            background: #e2e8f0;
+            color: #0f172a;
+        }
+        .has-tooltip::before {
+            content: '';
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 6px;
+            border-style: solid;
+            border-color: #0f1b22 transparent transparent transparent;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.2s ease-out;
+            z-index: 100;
+        }
+        .dark .has-tooltip::before { border-color: #e2e8f0 transparent transparent transparent; }
+        
+        .has-tooltip:hover::after, .has-tooltip:hover::before,
+        .has-tooltip:focus::after, .has-tooltip:focus::before {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* Print Mode Override */
+        @media print {
+            body { background: white !important; color: black !important; }
+            .no-print, header, .hero, .jump, #btt-btn { display: none !important; }
+            main { max-width: 100% !important; padding: 0 !important; margin: 0 !important; }
+            section { page-break-inside: avoid; margin-bottom: 2rem; padding-top: 1rem !important; }
+            .bg-white, .dark\:bg-slate-800 { background: transparent !important; border: 1px solid #cbd5e1 !important; box-shadow: none !important; }
+            .tab-panel { display: block !important; margin-bottom: 1rem; }
+            .tabs-nav { display: none !important; }
+            pre { white-space: pre-wrap !important; word-break: break-all !important; }
+            .has-tooltip { text-decoration: none; color: inherit; }
+            .has-tooltip::after, .has-tooltip::before { display: none !important; }
+        }
+    </style>
+</head>
+<body class="bg-paper dark:bg-slate-900 text-ink dark:text-slate-100 font-sans antialiased leading-relaxed m-0 p-0 selection:bg-brand selection:text-white">
+
+<header class="sticky top-0 z-50 transition-all no-print bg-white/85 dark:bg-slate-900/85 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 shadow-sm">
+    <!-- Top Row: Logos & Tools -->
+    <div class="max-w-[900px] mx-auto px-4 sm:px-6 py-2.5 flex items-center justify-between gap-3">
+        
+        <!-- Logos Header-->
+        <a href="#top" class="flex items-center gap-3 sm:gap-4 shrink-0 no-underline text-ink dark:text-slate-100 group hover:opacity-90 transition-opacity">
+            <div class="flex items-center gap-3">
+                <img src="logo 24 png (20).jpg" alt="24/7" class="h-7 sm:h-9 w-auto object-contain rounded-sm" />
+                <div class="h-6 w-px bg-slate-300 dark:bg-slate-700"></div>
+                <img src="El_Al.svg.png" alt="EL AL" class="h-5 sm:h-7 w-auto object-contain dark:brightness-0 dark:invert" />
+            </div>
+            <div class="h-8 w-px bg-slate-200 dark:bg-slate-700 hidden sm:block"></div>
+            <div class="hidden sm:block">
+                <b class="font-heading font-bold text-[14px] sm:text-[15px] tracking-tight leading-tight block">BUSINESS CIRCLE</b>
+                <span class="block text-[11px] text-ink-light dark:text-slate-400 font-medium">מדריך תימחור וכרטוס</span>
+            </div>
+        </a>
+
+        <!-- Tools: Theme Toggle & Print -->
+        <div class="flex items-center gap-2">
+            <button id="print-btn" class="p-2 text-ink-light hover:text-brand dark:text-slate-400 dark:hover:text-brand transition-colors rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-brand" aria-label="הדפס מדריך" title="הדפס כרטיסייה (Cheat Sheet)">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+            </button>
+            <button id="theme-toggle" class="p-2 text-ink-light hover:text-brand dark:text-slate-400 dark:hover:text-brand transition-colors rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-brand" aria-label="החלף מצב תצוגה" title="מצב לילה/יום">
+                <svg id="theme-icon-sun" class="hidden dark:block" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                <svg id="theme-icon-moon" class="block dark:hidden" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- Bottom Row: Smart Generator & Navigation -->
+    <div class="border-t border-slate-100 dark:border-slate-800/50 bg-slate-50/50 dark:bg-slate-900/50">
+        <div class="max-w-[900px] mx-auto px-4 sm:px-6 py-2 flex flex-wrap md:flex-nowrap items-center justify-between gap-3 sm:gap-4">
+            
+            <!-- Dynamic Command Generator Input -->
+            <div class="relative w-full md:w-auto shrink-0 flex items-center gap-2 group">
+                <div class="w-8 h-8 rounded-full bg-brand-soft dark:bg-brand-deep/20 text-brand-deep dark:text-brand flex items-center justify-center shrink-0 shadow-sm border border-brand/20">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+                </div>
+                <div class="relative w-full sm:w-[220px]">
+                    <input type="text" id="dyn-input" maxlength="8" placeholder="קוד חברה לתימחור..." 
+                        class="w-full bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-full px-3 py-1.5 text-[13px] font-mono text-ink dark:text-white uppercase placeholder:normal-case placeholder:font-sans placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand transition-colors"
+                        autocomplete="off">
+                    <span class="absolute left-3 top-1/2 -translate-y-1/2 text-[10px] text-slate-400 font-medium pointer-events-none opacity-0 group-focus-within:opacity-100 transition-opacity">ערוך</span>
+                </div>
+            </div>
+
+            <!-- Navigation -->
+            <nav class="jump hide-scrollbar flex gap-1 overflow-x-auto w-full md:w-auto pb-1 md:pb-0" aria-label="ניווט מהיר">
+                <a href="#program" class="whitespace-nowrap text-[13px] font-medium text-ink-muted dark:text-slate-300 px-3 py-1.5 rounded-full hover:bg-brand-soft dark:hover:bg-slate-800 hover:text-brand-deep dark:hover:text-brand transition-colors">התוכנית</a>
+                <a href="#overview" class="whitespace-nowrap text-[13px] font-medium text-ink-muted dark:text-slate-300 px-3 py-1.5 rounded-full hover:bg-brand-soft dark:hover:bg-slate-800 hover:text-brand-deep dark:hover:text-brand transition-colors">מה משתנה</a>
+                <a href="#critical" class="whitespace-nowrap text-[13px] font-medium text-ink-muted dark:text-slate-300 px-3 py-1.5 rounded-full hover:bg-brand-soft dark:hover:bg-slate-800 hover:text-brand-deep dark:hover:text-brand transition-colors">דגשים</a>
+                <a href="#commands" class="whitespace-nowrap text-[13px] font-medium text-ink-muted dark:text-slate-300 px-3 py-1.5 rounded-full hover:bg-brand-soft dark:hover:bg-slate-800 hover:text-brand-deep dark:hover:text-brand transition-colors">פקודות וכרטוס</a>
+                <a href="#examples" class="whitespace-nowrap text-[13px] font-medium text-ink-muted dark:text-slate-300 px-3 py-1.5 rounded-full hover:bg-brand-soft dark:hover:bg-slate-800 hover:text-brand-deep dark:hover:text-brand transition-colors">דוגמאות מסוף</a>
+                <a href="#payment" class="whitespace-nowrap text-[13px] font-medium text-ink-muted dark:text-slate-300 px-3 py-1.5 rounded-full hover:bg-brand-soft dark:hover:bg-slate-800 hover:text-brand-deep dark:hover:text-brand transition-colors">תשלום והערות</a>
+            </nav>
+        </div>
+    </div>
+</header>
+
+<div id="top"></div>
+
+<main class="max-w-[900px] mx-auto px-4 sm:px-6 pb-24">
+    
+    <!-- Hero Section -->
+    <div class="relative mt-8 rounded-2xl bg-gradient-to-br from-[#0c1b22] via-[#102b33] to-[#0c1b22] text-[#eaf6f9] overflow-hidden shadow-soft border border-slate-200 dark:border-slate-800 print:bg-none print:text-black print:border-none print:shadow-none">
+        <!-- Background Pattern -->
+        <div class="absolute inset-0 opacity-50 pointer-events-none print:hidden" style="background-image: radial-gradient(rgba(255,255,255,.08) 1px, transparent 1.5px); background-size: 20px 20px;"></div>
+        
+        <!-- Dedicated Partner Logos Stage -->
+        <div class="relative z-10 flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-14 py-8 sm:py-10 px-4 bg-black/20 border-b border-white/5 backdrop-blur-sm print:hidden">
+            <!-- 24/7 Logo -->
+            <div class="relative flex items-center justify-center group cursor-default">
+                <div class="absolute inset-0 bg-white/5 blur-2xl rounded-full group-hover:bg-white/10 transition-colors duration-500"></div>
+                <img src="logo 24 png (20).jpg" alt="24/7 Amsalem Global Travel Management" class="relative h-16 sm:h-24 w-auto object-contain drop-shadow-[0_10px_20px_rgba(0,0,0,0.6)] transform group-hover:scale-105 transition-transform duration-500" />
+            </div>
+            
+            <!-- Partnership Element -->
+            <div class="flex items-center gap-3 opacity-70">
+                <div class="h-px w-10 sm:w-16 bg-gradient-to-l from-white/40 to-transparent"></div>
+                <div class="w-8 h-8 rounded-full border border-white/20 bg-white/5 flex items-center justify-center backdrop-blur-md shadow-inner">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="text-white"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                </div>
+                <div class="h-px w-10 sm:w-16 bg-gradient-to-r from-white/40 to-transparent"></div>
+            </div>
+            
+            <!-- EL AL Logo -->
+            <div class="relative flex items-center justify-center group cursor-default">
+                <div class="absolute inset-0 bg-[#1bb0ce]/10 blur-2xl rounded-full group-hover:bg-[#1bb0ce]/20 transition-colors duration-500"></div>
+                <img src="El_Al.svg.png" alt="EL AL" class="relative h-10 sm:h-16 w-auto object-contain brightness-0 invert drop-shadow-[0_10px_20px_rgba(0,0,0,0.6)] transform group-hover:scale-105 transition-transform duration-500" />
+            </div>
+        </div>
+
+        <div class="relative grid grid-cols-1 md:grid-cols-[1.4fr_0.9fr]">
+            <!-- Hero Content -->
+            <div class="p-8 sm:p-10">
+                <span class="inline-flex items-center gap-2 font-heading font-semibold text-xs tracking-[1.5px] text-brand border border-brand/40 px-3 py-1.5 rounded-full mb-5 bg-brand/5 print:text-black print:border-black">
+                    <span class="w-2 h-2 rounded-full bg-brand animate-pulse print:hidden"></span>
+                    חובה קריאה והפנמה
+                </span>
+                <h1 class="font-heading text-3xl sm:text-4xl md:text-[42px] font-extrabold tracking-tight leading-tight mb-4 text-balance">
+                    מערכת תימחור <em class="not-italic text-brand print:text-black">חדשה</em><br>באל על
+                </h1>
+                <p class="text-[#b9d2d9] text-base mb-6 max-w-[46ch] print:text-gray-800">
+                    החל מ 1 ביולי 2026 נכנס לתוקף תהליך תימחור וכרטוס חדש עבור הסכמי החברות <b>BUSINESS CIRCLE</b>. כל הסוכנים נדרשים להכיר את ההנחיות לפני מועד ההפעלה.
+                </p>
+            </div>
+
+            <div class="relative p-8 sm:p-10 flex flex-col justify-center gap-4 md:border-s-2 md:border-t-0 border-t-2 border-dashed border-white/20 print:hidden">
+                <div class="hidden md:block absolute -top-2.5 -start-2.5 w-5 h-5 rounded-full bg-paper dark:bg-slate-900 transition-colors"></div>
+                <div class="hidden md:block absolute -bottom-2.5 -start-2.5 w-5 h-5 rounded-full bg-paper dark:bg-slate-900 transition-colors"></div>
+                <div class="md:hidden absolute -top-2.5 start-1/2 -translate-x-1/2 w-5 h-5 rounded-full bg-paper dark:bg-slate-900 transition-colors"></div>
+
+                <div id="countdown-container">
+                    <div class="font-heading text-[11px] tracking-[1.5px] text-[#7fa3ab] uppercase mb-3">מועד הפעלה · 01 JUL 2026</div>
+                    <div class="flex gap-2 sm:gap-3" aria-live="polite">
+                        <div class="flex-1 text-center bg-white/5 border border-white/10 rounded-xl p-3 backdrop-blur-sm shadow-inner">
+                            <div class="font-heading font-extrabold text-2xl sm:text-3xl leading-none text-white tabular-nums" id="d">--</div>
+                            <div class="text-[10.5px] text-[#8fb0b8] mt-1.5 tracking-wide">ימים</div>
+                        </div>
+                        <div class="flex-1 text-center bg-white/5 border border-white/10 rounded-xl p-3 backdrop-blur-sm shadow-inner">
+                            <div class="font-heading font-extrabold text-2xl sm:text-3xl leading-none text-white tabular-nums" id="h">--</div>
+                            <div class="text-[10.5px] text-[#8fb0b8] mt-1.5 tracking-wide">שעות</div>
+                        </div>
+                        <div class="flex-1 text-center bg-white/5 border border-white/10 rounded-xl p-3 backdrop-blur-sm shadow-inner">
+                            <div class="font-heading font-extrabold text-2xl sm:text-3xl leading-none text-white tabular-nums" id="m">--</div>
+                            <div class="text-[10.5px] text-[#8fb0b8] mt-1.5 tracking-wide">דקות</div>
+                        </div>
+                        <div class="flex-1 text-center bg-white/5 border border-white/10 rounded-xl p-3 backdrop-blur-sm shadow-inner">
+                            <div class="font-heading font-extrabold text-2xl sm:text-3xl leading-none text-brand tabular-nums" id="s">--</div>
+                            <div class="text-[10.5px] text-[#8fb0b8] mt-1.5 tracking-wide">שניות</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="live-badge" class="hidden items-center gap-2.5 bg-term-green/10 border border-term-green/30 text-term-green rounded-xl p-4 font-heading font-semibold text-[15px]">
+                    <span class="w-2.5 h-2.5 rounded-full bg-term-green animate-pulse"></span>
+                    המערכת פעילה תמחור עם קוד חברה
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PROGRAM -->
+    <section id="program" class="scroll-mt-36 pt-12">
+        <p class="font-heading font-semibold text-[12px] tracking-[2px] text-brand-deep dark:text-brand uppercase mb-2.5 flex items-center gap-2">
+            <span class="w-6 h-0.5 bg-brand rounded-full"></span>התוכנית
+        </p>
+        <h2 class="font-heading text-2xl sm:text-3xl font-bold tracking-tight mb-2 text-ink dark:text-slate-100">דרגות EL AL BUSINESS CIRCLE</h2>
+        <p class="text-ink-muted dark:text-slate-300 text-base sm:text-lg mb-6 max-w-[64ch] leading-relaxed">
+            תוכנית הנוסע העסקי של אל על בנויה בארבע דרגות לפי היקף הפעילות של החברה. דירוג החברה קובע את רמת ההטבות וגם משפיע על אופן עדכון מספר החברה בהזמנה (ראו פקודות בהמשך).
+        </p>
+        
+        <div class="bg-gradient-to-br from-[#2c3088] via-[#3a3f9e] to-[#2c3088] rounded-2xl p-6 sm:p-8 text-center text-[#eef0ff] shadow-soft mt-2 print:bg-none print:text-black print:border print:border-gray-300">
+            <div class="font-heading font-bold tracking-wide text-lg sm:text-xl mb-6">EL AL BUSINESS CIRCLE</div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
+                <div class="bg-white/5 border border-white/10 rounded-xl p-4 sm:p-5 relative overflow-hidden group hover:bg-white/10 transition-colors print:bg-gray-50 print:border-gray-200">
+                    <div class="absolute top-0 left-0 right-0 h-1.5 bg-[#5560c8] print:bg-gray-400"></div>
+                    <div class="font-heading font-bold text-base sm:text-lg tracking-wide mt-2 print:text-black">CORE</div>
+                    <div class="text-[11px] text-[#b9bdf0] mt-1 font-mono print:text-gray-600">דרגה 01</div>
+                </div>
+                <div class="bg-white/5 border border-white/10 rounded-xl p-4 sm:p-5 relative overflow-hidden group hover:bg-white/10 transition-colors print:bg-gray-50 print:border-gray-200">
+                    <div class="absolute top-0 left-0 right-0 h-1.5 bg-[#c9a14a] print:bg-gray-400"></div>
+                    <div class="font-heading font-bold text-base sm:text-lg tracking-wide mt-2 print:text-black">BEYOND</div>
+                    <div class="text-[11px] text-[#b9bdf0] mt-1 font-mono print:text-gray-600">דרגה 02</div>
+                </div>
+                <div class="bg-white/5 border border-white/10 rounded-xl p-4 sm:p-5 relative overflow-hidden group hover:bg-white/10 transition-colors print:bg-gray-50 print:border-gray-200">
+                    <div class="absolute top-0 left-0 right-0 h-1.5 bg-[#aab0b6] print:bg-gray-400"></div>
+                    <div class="font-heading font-bold text-base sm:text-lg tracking-wide mt-2 print:text-black">PREMIUM</div>
+                    <div class="text-[11px] text-[#b9bdf0] mt-1 font-mono print:text-gray-600">דרגה 03</div>
+                </div>
+                <div class="bg-white/5 border border-white/10 rounded-xl p-4 sm:p-5 relative overflow-hidden group hover:bg-white/10 transition-colors print:bg-gray-50 print:border-gray-200">
+                    <div class="absolute top-0 left-0 right-0 h-1.5 bg-[#e7eaee] print:bg-gray-400"></div>
+                    <div class="font-heading font-bold text-base sm:text-lg tracking-wide mt-2 text-white drop-shadow-sm print:text-black print:drop-shadow-none">ELITE</div>
+                    <div class="text-[11px] text-[#b9bdf0] mt-1 font-mono print:text-gray-600">דרגה 04</div>
+                </div>
+            </div>
+            <div class="mt-6 text-[12.5px] text-[#b9bdf0] print:text-gray-600 font-medium opacity-80">↑ ככל שעולים בדרגה ההטבות, התעדוף ורמת השירות גדלים</div>
+        </div>
+    </section>
+
+    <!-- OVERVIEW -->
+    <section id="overview" class="scroll-mt-36 pt-12">
+        <p class="font-heading font-semibold text-[12px] tracking-[2px] text-brand-deep dark:text-brand uppercase mb-2.5 flex items-center gap-2">
+            <span class="w-6 h-0.5 bg-brand rounded-full"></span>סקירה
+        </p>
+        <h2 class="font-heading text-2xl sm:text-3xl font-bold tracking-tight mb-2 text-ink dark:text-slate-100">מה משתנה ב 1 ביולי</h2>
+        <p class="text-ink-muted dark:text-slate-300 text-base sm:text-lg mb-6 max-w-[64ch] leading-relaxed">
+            מ 1 ביולי משתנה אופן התימחור והכרטוס של הסכמי החברות. ההסכם הוא חוזה גלובלי אחד, מתומחר ומכורטס ב IATA הישראלית בלבד כך שההנחה מוחלת אוטומטית והכרטוס מתבצע עם <b class="text-ink dark:text-white font-semibold">קוד החברה</b>.
+        </p>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
+            <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-5 relative shadow-sm hover:shadow-md transition-shadow">
+                <div class="absolute top-0 right-0 w-1 h-full bg-brand rounded-r-xl"></div>
+                <h4 class="font-heading font-semibold text-[15px] mb-1.5 text-ink dark:text-slate-100">חוזה מרכזי ואחיד</h4>
+                <p class="text-[13.5px] text-ink-light dark:text-slate-400 leading-relaxed m-0">חוזה גלובלי לכלל הפעילות של החברה, מתומחר ומכורטס ב IATA הישראלית בלבד.</p>
+            </div>
+            <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-5 relative shadow-sm hover:shadow-md transition-shadow">
+                <div class="absolute top-0 right-0 w-1 h-full bg-brand rounded-r-xl"></div>
+                <h4 class="font-heading font-semibold text-[15px] mb-1.5 text-ink dark:text-slate-100">הנחה אוטומטית</h4>
+                <p class="text-[13.5px] text-ink-light dark:text-slate-400 leading-relaxed m-0">מוחלת אוטומטית בכל כרטוס מ ואל TLV.</p>
+            </div>
+            <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-5 relative shadow-sm hover:shadow-md transition-shadow">
+                <div class="absolute top-0 right-0 w-1 h-full bg-brand rounded-r-xl"></div>
+                <h4 class="font-heading font-semibold text-[15px] mb-1.5 text-ink dark:text-slate-100 flex items-center">מחירון עסקי <span tabindex="0" class="has-tooltip font-mono text-[11px] bg-slate-100 dark:bg-slate-700 px-1.5 py-0.5 rounded ml-1 ms-1" data-tip="Point of Sale נקודת המכירה">POS</span></h4>
+                <p class="text-[13.5px] text-ink-light dark:text-slate-400 leading-relaxed m-0">תימחור עסקי מכל נקודות המכירה הגלובליות.</p>
+            </div>
+            <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-5 relative shadow-sm hover:shadow-md transition-shadow">
+                <div class="absolute top-0 right-0 w-1 h-full bg-brand rounded-r-xl"></div>
+                <h4 class="font-heading font-semibold text-[15px] mb-1.5 text-ink dark:text-slate-100 flex items-center">מחירון עסקי <span tabindex="0" class="has-tooltip font-mono text-[11px] bg-slate-100 dark:bg-slate-700 px-1.5 py-0.5 rounded ml-1 ms-1" data-tip="Point of Origin יעד הפעילות המקורי">POO</span></h4>
+                <p class="text-[13.5px] text-ink-light dark:text-slate-400 leading-relaxed m-0">תימחור עסקי מכל יעדי הפעילות של החברה.</p>
+            </div>
+            <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-5 relative shadow-sm hover:shadow-md transition-shadow">
+                <div class="absolute top-0 right-0 w-1 h-full bg-brand rounded-r-xl"></div>
+                <h4 class="font-heading font-semibold text-[15px] mb-1.5 text-ink dark:text-slate-100">הנחה גם ל ONE WAY</h4>
+                <p class="text-[13.5px] text-ink-light dark:text-slate-400 leading-relaxed m-0">מחירון עסקי חל גם על כרטוסי כיוון אחד.</p>
+            </div>
+            <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-5 relative shadow-sm hover:shadow-md transition-shadow">
+                <div class="absolute top-0 right-0 w-1 h-full bg-brand rounded-r-xl"></div>
+                <h4 class="font-heading font-semibold text-[15px] mb-1.5 text-ink dark:text-slate-100">עמלה 0%</h4>
+                <p class="text-[13.5px] text-ink-light dark:text-slate-400 leading-relaxed m-0">בתימחור עסקי העמלה נותרת 0%.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CRITICAL -->
+    <section id="critical" class="scroll-mt-36 pt-12">
+        <p class="font-heading font-semibold text-[12px] tracking-[2px] text-brand-deep dark:text-brand uppercase mb-2.5 flex items-center gap-2">
+            <span class="w-6 h-0.5 bg-brand rounded-full"></span>דגשים קריטיים
+        </p>
+        <h2 class="font-heading text-2xl sm:text-3xl font-bold tracking-tight mb-2 text-ink dark:text-slate-100">על מה לתת את הדעת</h2>
+        
+        <div class="bg-[#fdf3e2] dark:bg-[#422c0e] border border-[#f0d9af] dark:border-[#7a4e0c] rounded-2xl p-5 mt-4 flex gap-4 items-start shadow-sm">
+            <div class="shrink-0 w-10 h-10 rounded-xl bg-[#c9821b] text-white flex items-center justify-center font-heading font-black text-xl shadow-inner">!</div>
+            <div>
+                <h3 class="font-heading font-bold text-[17px] mb-1 text-[#7a4e0c] dark:text-[#f0d9af]">התימחור הוא עם קוד חברה בלבד</h3>
+                <p class="text-[#5e4310] dark:text-[#e4c9a1] text-[14.5px] m-0 leading-relaxed">
+                    זהו השינוי המהותי. תימחור עם קוד החברה מכניס אוטומטית את גובה ההנחה ואת פרטי החברה במקומות הנכונים קוד הדרוג ב <span tabindex="0" class="has-tooltip focus:outline-none focus:ring-2 focus:ring-brand" data-tip="Ticket Designator קוד דירוג המזהה את ההסכם (DS/DG/DP)">TKT DSG</span>, שם ומספר החברה ב<span tabindex="0" class="has-tooltip focus:outline-none focus:ring-2 focus:ring-brand" data-tip="הערת כרטוס מחייבת">אינדורסמנט</span>, ומספר החברה בטור הקוד.
+                </p>
+            </div>
+        </div>
+
+        <p class="text-ink-muted dark:text-slate-300 text-[16px] font-medium mt-8 mb-4">לאן נכנס כל פרט של החברה (מתבצע אוטומטית):</p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-5 text-center shadow-sm">
+                <div class="text-[14px] text-ink-muted dark:text-slate-400 font-medium min-h-[42px] flex items-center justify-center">מספר החברה</div>
+                <div class="text-brand my-2 text-lg">↓</div>
+                <div class="font-mono font-bold text-[15px] text-brand-deep dark:text-brand bg-brand-soft dark:bg-slate-700 rounded-lg py-2 px-1">Tour Code</div>
+            </div>
+            <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-5 text-center shadow-sm">
+                <div class="text-[14px] text-ink-muted dark:text-slate-400 font-medium min-h-[42px] flex items-center justify-center">קוד התמחור</div>
+                <div class="text-brand my-2 text-lg">↓</div>
+                <div class="font-mono font-bold text-[15px] text-brand-deep dark:text-brand bg-brand-soft dark:bg-slate-700 rounded-lg py-2 px-1 flex flex-col items-center">
+                    <span tabindex="0" class="has-tooltip focus:outline-none focus:ring-2 focus:ring-brand" data-tip="קוד המורכב מחלק בסיסי + קוד ההסכם">Fare Basis</span>
+                    <span class="font-sans font-normal text-[11px] text-ink-light dark:text-slate-500 mt-1">צמוד ל Fare Basis</span>
+                </div>
+            </div>
+            <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-5 text-center shadow-sm">
+                <div class="text-[14px] text-ink-muted dark:text-slate-400 font-medium min-h-[42px] flex items-center justify-center">שם החברה + קוד תמחור</div>
+                <div class="text-brand my-2 text-lg">↓</div>
+                <div class="font-mono font-bold text-[15px] text-brand-deep dark:text-brand bg-brand-soft dark:bg-slate-700 rounded-lg py-2 px-1">Endorsement</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- COMMANDS & MANUAL TICKETING -->
+    <section id="commands" class="scroll-mt-36 pt-12">
+        <p class="font-heading font-semibold text-[12px] tracking-[2px] text-brand-deep dark:text-brand uppercase mb-2.5 flex items-center gap-2">
+            <span class="w-6 h-0.5 bg-brand rounded-full"></span>פקודות וכרטוס
+        </p>
+        <h2 class="font-heading text-2xl sm:text-3xl font-bold tracking-tight mb-2 text-ink dark:text-slate-100">צפייה במחיר, תימחור ועדכון קוד</h2>
+        <p class="text-ink-muted dark:text-slate-300 text-base sm:text-lg mb-6 max-w-[64ch] leading-relaxed">
+            מרוכזות כאן כל הפקודות הרלוונטיות. <b class="text-brand-deep dark:text-brand">טיפ:</b> הקלידו קוד חברה בתיבה למעלה כדי לעדכן את כל הפקודות במסמך!
+        </p>
+
+        <div class="grid gap-6">
+            <div class="border border-slate-200 dark:border-slate-700 rounded-xl overflow-hidden bg-white dark:bg-slate-800 shadow-sm">
+                <div class="flex items-center gap-3 py-2.5 px-4 bg-[#eef5f7] dark:bg-slate-700/50 border-b border-slate-200 dark:border-slate-700">
+                    <span class="font-mono font-bold text-[13px] text-brand-deep dark:text-brand bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 rounded-md px-2 py-0.5 shadow-sm">1A</span>
+                    <b class="font-heading font-semibold text-[15px] text-ink dark:text-slate-100">Amadeus</b>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-[210px_1fr] gap-2 md:gap-4 p-3 sm:p-4 border-b border-slate-100 dark:border-slate-700/50">
+                    <div class="text-[13.5px] text-ink-muted dark:text-slate-300 font-semibold pt-1 md:pt-2">צפייה במחירי ההסכם</div>
+                    <div class="grid gap-2">
+                        <div class="flex items-center gap-2 flex-wrap sm:flex-nowrap dir-ltr bg-ink dark:bg-slate-900 border border-[#1c2e28] dark:border-slate-700 rounded-lg p-2">
+                            <code class="font-mono text-[13px] text-term-green flex-1 break-all select-all">FQDTLVNYC/03NOV/ALY/R,U*<span class="dyn-code text-[#ffd580] bg-white/10 px-0.5 rounded transition-colors">xxxxx</span></code>
+                            <button class="copy-btn shrink-0 cursor-pointer border border-term-green/25 bg-term-green/10 text-term-green hover:bg-term-green/20 rounded-md w-8 h-8 flex items-center justify-center transition-colors focus:ring-2 focus:ring-term-green focus:outline-none" aria-label="העתק פקודה" title="העתק ללוח">⧉</button>
+                        </div>
+                        <div class="flex items-center gap-2 flex-wrap sm:flex-nowrap dir-ltr bg-ink dark:bg-slate-900 border border-[#1c2e28] dark:border-slate-700 rounded-lg p-2">
+                            <code class="font-mono text-[13px] text-term-green flex-1 break-all select-all">FQDTLVNYC/03NOV/ALY/R,U<span class="dyn-code text-[#ffd580] bg-white/10 px-0.5 rounded transition-colors">xxxxx</span></code>
+                            <button class="copy-btn shrink-0 cursor-pointer border border-term-green/25 bg-term-green/10 text-term-green hover:bg-term-green/20 rounded-md w-8 h-8 flex items-center justify-center transition-colors focus:ring-2 focus:ring-term-green focus:outline-none" aria-label="העתק פקודה" title="העתק ללוח">⧉</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-[210px_1fr] gap-2 md:gap-4 p-3 sm:p-4 border-b border-slate-100 dark:border-slate-700/50">
+                    <div class="text-[13.5px] text-ink-muted dark:text-slate-300 font-semibold pt-1 md:pt-2">תמחור מחיר הסכם</div>
+                    <div class="grid gap-2">
+                        <div class="flex items-center gap-2 flex-wrap sm:flex-nowrap dir-ltr bg-ink dark:bg-slate-900 border border-[#1c2e28] dark:border-slate-700 rounded-lg p-2">
+                            <code class="font-mono text-[13px] text-term-green flex-1 break-all select-all">FXP/R,U*<span class="dyn-code text-[#ffd580] bg-white/10 px-0.5 rounded transition-colors">xxxxx</span></code>
+                            <button class="copy-btn shrink-0 cursor-pointer border border-term-green/25 bg-term-green/10 text-term-green hover:bg-term-green/20 rounded-md w-8 h-8 flex items-center justify-center transition-colors" aria-label="העתק פקודה">⧉</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-[210px_1fr] gap-2 md:gap-4 p-3 sm:p-4 border-b border-slate-100 dark:border-slate-700/50">
+                    <div class="text-[13.5px] text-ink-muted dark:text-slate-300 font-semibold pt-1 md:pt-2">כרטוס ידני (עדכון מספר חברה)</div>
+                    <div class="flex items-center gap-2 flex-wrap sm:flex-nowrap dir-ltr bg-ink dark:bg-slate-900 border border-[#1c2e28] dark:border-slate-700 rounded-lg p-2">
+                        <code class="font-mono text-[13px] text-term-green flex-1 break-all select-all">SR CO<span class="text-[#fff3b0] bg-white/10 px-0.5 rounded font-bold">DS</span> - <span class="dyn-code text-[#ffd580] bg-white/10 px-0.5 rounded transition-colors">xxxxx</span></code>
+                        <button class="copy-btn shrink-0 cursor-pointer border border-term-green/25 bg-term-green/10 text-term-green hover:bg-term-green/20 rounded-md w-8 h-8 flex items-center justify-center transition-colors" aria-label="העתק פקודה">⧉</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border border-slate-200 dark:border-slate-700 rounded-xl overflow-hidden bg-white dark:bg-slate-800 shadow-sm">
+                <div class="flex items-center gap-3 py-2.5 px-4 bg-[#eef5f7] dark:bg-slate-700/50 border-b border-slate-200 dark:border-slate-700">
+                    <span class="font-mono font-bold text-[13px] text-brand-deep dark:text-brand bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 rounded-md px-2 py-0.5 shadow-sm">1S</span>
+                    <b class="font-heading font-semibold text-[15px] text-ink dark:text-slate-100">Sabre</b>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-[210px_1fr] gap-2 md:gap-4 p-3 sm:p-4 border-b border-slate-100 dark:border-slate-700/50">
+                    <div class="text-[13.5px] text-ink-muted dark:text-slate-300 font-semibold pt-1 md:pt-2">צפייה במחיר ההסכם</div>
+                    <div class="flex items-center gap-2 flex-wrap sm:flex-nowrap dir-ltr bg-ink dark:bg-slate-900 border border-[#1c2e28] dark:border-slate-700 rounded-lg p-2">
+                        <code class="font-mono text-[13px] text-term-green flex-1 break-all select-all">FQTLVNYC03NOV-LY‡<span class="dyn-code text-[#ffd580] bg-white/10 px-0.5 rounded transition-colors">xxxxx</span></code>
+                        <button class="copy-btn shrink-0 cursor-pointer border border-term-green/25 bg-term-green/10 text-term-green hover:bg-term-green/20 rounded-md w-8 h-8 flex items-center justify-center transition-colors" aria-label="העתק פקודה">⧉</button>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-[210px_1fr] gap-2 md:gap-4 p-3 sm:p-4 border-b border-slate-100 dark:border-slate-700/50">
+                    <div class="text-[13.5px] text-ink-muted dark:text-slate-300 font-semibold pt-1 md:pt-2">תמחור מחיר הסכם</div>
+                    <div class="flex items-center gap-2 flex-wrap sm:flex-nowrap dir-ltr bg-ink dark:bg-slate-900 border border-[#1c2e28] dark:border-slate-700 rounded-lg p-2">
+                        <code class="font-mono text-[13px] text-term-green flex-1 break-all select-all">WPI<span class="dyn-code text-[#ffd580] bg-white/10 px-0.5 rounded transition-colors">xxxxx</span>‡XC</code>
+                        <button class="copy-btn shrink-0 cursor-pointer border border-term-green/25 bg-term-green/10 text-term-green hover:bg-term-green/20 rounded-md w-8 h-8 flex items-center justify-center transition-colors" aria-label="העתק פקודה">⧉</button>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-[210px_1fr] gap-2 md:gap-4 p-3 sm:p-4 border-b border-slate-100 dark:border-slate-700/50">
+                    <div class="text-[13.5px] text-ink-muted dark:text-slate-300 font-semibold pt-1 md:pt-2">כרטוס ידני (עדכון מספר חברה)</div>
+                    <div class="flex items-center gap-2 flex-wrap sm:flex-nowrap dir-ltr bg-ink dark:bg-slate-900 border border-[#1c2e28] dark:border-slate-700 rounded-lg p-2">
+                        <code class="font-mono text-[13px] text-term-green flex-1 break-all select-all">3CO<span class="text-[#fff3b0] bg-white/10 px-0.5 rounded font-bold">DS</span>/<span class="dyn-code text-[#ffd580] bg-white/10 px-0.5 rounded transition-colors">xxxxx</span>-1.1</code>
+                        <button class="copy-btn shrink-0 cursor-pointer border border-term-green/25 bg-term-green/10 text-term-green hover:bg-term-green/20 rounded-md w-8 h-8 flex items-center justify-center transition-colors" aria-label="העתק פקודה">⧉</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border border-slate-200 dark:border-slate-700 rounded-xl overflow-hidden bg-white dark:bg-slate-800 shadow-sm">
+                <div class="flex items-center gap-3 py-2.5 px-4 bg-[#eef5f7] dark:bg-slate-700/50 border-b border-slate-200 dark:border-slate-700">
+                    <span class="font-mono font-bold text-[13px] text-brand-deep dark:text-brand bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 rounded-md px-2 py-0.5 shadow-sm">1G / 1P</span>
+                    <b class="font-heading font-semibold text-[15px] text-ink dark:text-slate-100">Travelport+ (Galileo / Worldspan)</b>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-[210px_1fr] gap-2 md:gap-4 p-3 sm:p-4 border-b border-slate-100 dark:border-slate-700/50">
+                    <div class="text-[13.5px] text-ink-muted dark:text-slate-300 font-semibold pt-1 md:pt-2">תמחור גלילאו (1G)</div>
+                    <div class="flex items-center gap-2 flex-wrap sm:flex-nowrap dir-ltr bg-ink dark:bg-slate-900 border border-[#1c2e28] dark:border-slate-700 rounded-lg p-2">
+                        <code class="font-mono text-[13px] text-term-green flex-1 break-all select-all">FQ-:<span class="dyn-code text-[#ffd580] bg-white/10 px-0.5 rounded transition-colors">xxxxx</span></code>
+                        <button class="copy-btn shrink-0 cursor-pointer border border-term-green/25 bg-term-green/10 text-term-green hover:bg-term-green/20 rounded-md w-8 h-8 flex items-center justify-center transition-colors" aria-label="העתק פקודה">⧉</button>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-[210px_1fr] gap-2 md:gap-4 p-3 sm:p-4 border-b border-slate-100 dark:border-slate-700/50">
+                    <div class="text-[13.5px] text-ink-muted dark:text-slate-300 font-semibold pt-1 md:pt-2">כרטוס ידני גלילאו (1G)</div>
+                    <div class="flex items-center gap-2 flex-wrap sm:flex-nowrap dir-ltr bg-ink dark:bg-slate-900 border border-[#1c2e28] dark:border-slate-700 rounded-lg p-2">
+                        <code class="font-mono text-[13px] text-term-green flex-1 break-all select-all">SI.P1/SSRCO<span class="text-[#fff3b0] bg-white/10 px-0.5 rounded font-bold">DS</span>LYHK1/<span class="dyn-code text-[#ffd580] bg-white/10 px-0.5 rounded transition-colors">xxxxx</span></code>
+                        <button class="copy-btn shrink-0 cursor-pointer border border-term-green/25 bg-term-green/10 text-term-green hover:bg-term-green/20 rounded-md w-8 h-8 flex items-center justify-center transition-colors" aria-label="העתק פקודה">⧉</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="callout warn bg-[#fdf3e2] dark:bg-[#422c0e] border border-[#f0d9af] dark:border-[#7a4e0c] rounded-2xl p-5 flex gap-4 items-start shadow-sm">
+                <div class="shrink-0 w-10 h-10 rounded-xl bg-[#c9821b] text-white flex items-center justify-center font-heading font-black text-xl shadow-inner">!</div>
+                <div>
+                    <h3 class="font-heading font-bold text-[17px] mb-1 text-[#7a4e0c] dark:text-[#f0d9af]">באחריות הסוכן (למניעת ADM)</h3>
+                    <p class="text-[#5e4310] dark:text-[#e4c9a1] text-[14.5px] m-0 leading-relaxed">
+                        הכנסת קוד הדרוג של החברה (<code class="font-mono text-[.88em] bg-white/50 dark:bg-black/20 px-1 rounded mx-0.5">DS</code>) <strong>באחריות הסוכן המכרטס</strong>. יש להקפיד על ה TKT DSG הנכון (DS/DG/DP) ועל הפרטים הנכונים בפורמט הנכון.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- EXAMPLES -->
+    <section id="examples" class="scroll-mt-36 pt-12">
+        <p class="font-heading font-semibold text-[12px] tracking-[2px] text-brand-deep dark:text-brand uppercase mb-2.5 flex items-center gap-2">
+            <span class="w-6 h-0.5 bg-brand rounded-full"></span>דוגמאות מסוף
+        </p>
+        <h2 class="font-heading text-2xl sm:text-3xl font-bold tracking-tight mb-2 text-ink dark:text-slate-100">איך זה נראה בכל GDS</h2>
+        <p class="text-ink-muted dark:text-slate-300 text-base sm:text-lg mb-6 max-w-[64ch] leading-relaxed">
+            פלט אמיתי מהמסוף לאחר תימחור. שימו לב לקוד הדרוג <code class="font-mono text-[.88em] bg-slate-100 dark:bg-slate-800 px-1 py-0.5 rounded text-brand-deep dark:text-brand">CPR03</code>, ה Tour Code <code class="font-mono text-[.88em] bg-slate-100 dark:bg-slate-800 px-1 py-0.5 rounded text-brand-deep dark:text-brand">COM12919</code> ושם החברה ב Endorsement.
+        </p>
+
+        <div class="tabs-nav flex flex-wrap gap-2 mb-4" role="tablist" aria-label="מערכות GDS">
+            <button role="tab" aria-selected="true" data-target="tab-amadeus" class="tab-btn font-heading font-medium text-[14px] cursor-pointer border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-ink-muted dark:text-slate-400 px-4 py-2 rounded-full transition-all aria-[selected=true]:bg-ink dark:aria-[selected=true]:bg-brand dark:aria-[selected=true]:text-white aria-[selected=true]:text-white aria-[selected=true]:border-ink dark:aria-[selected=true]:border-brand focus:outline-none focus:ring-2 focus:ring-brand focus:ring-offset-1">Amadeus</button>
+            <button role="tab" aria-selected="false" data-target="tab-sabre" class="tab-btn font-heading font-medium text-[14px] cursor-pointer border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-ink-muted dark:text-slate-400 px-4 py-2 rounded-full transition-all aria-[selected=true]:bg-ink dark:aria-[selected=true]:bg-brand dark:aria-[selected=true]:text-white aria-[selected=true]:text-white aria-[selected=true]:border-ink dark:aria-[selected=true]:border-brand focus:outline-none focus:ring-2 focus:ring-brand focus:ring-offset-1">Sabre</button>
+            <button role="tab" aria-selected="false" data-target="tab-travelport" class="tab-btn font-heading font-medium text-[14px] cursor-pointer border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-ink-muted dark:text-slate-400 px-4 py-2 rounded-full transition-all aria-[selected=true]:bg-ink dark:aria-[selected=true]:bg-brand dark:aria-[selected=true]:text-white aria-[selected=true]:text-white aria-[selected=true]:border-ink dark:aria-[selected=true]:border-brand focus:outline-none focus:ring-2 focus:ring-brand focus:ring-offset-1">Travelport · Galileo</button>
+        </div>
+
+        <div class="tab-panel active" id="tab-amadeus" role="tabpanel">
+            <div class="bg-term-bg rounded-xl overflow-hidden border border-[#1c2e28] shadow-lg print:border-gray-400">
+                <div class="flex items-center gap-2 px-4 py-2.5 bg-term-bar border-b border-[#1c2e28] print:hidden">
+                    <span class="w-3 h-3 rounded-full bg-[#ff5f56]"></span>
+                    <span class="w-3 h-3 rounded-full bg-[#ffbd2e]"></span>
+                    <span class="w-3 h-3 rounded-full bg-[#27c93f]"></span>
+                    <span class="ms-auto font-mono text-[11px] text-term-dim tracking-wide">1A · AMADEUS  TKT DISPLAY</span>
+                </div>
+                <div class="p-4 overflow-x-auto text-left print:text-black print:bg-white" dir="ltr">
+<pre class="m-0 font-mono text-[12.5px] leading-[1.6] text-[#cfe9dd] whitespace-pre min-w-max print:text-black">
+TKT-114123456789      RCI-                <b class="text-white font-bold print:text-black">1A</b>  LOC-XXXXXX
+   1.COHEN/DAN             ADT       S I
+1 OTLV LY 319  V 01MAY0550 OK VKC2PR/<mark class="bg-term-green/20 text-[#d6f6e8] px-0.5 rounded print:bg-gray-200 print:text-black">CPR03</mark>      O      1PC
+2 OCDG LY 220  V 10MAY0145 OK VKC2PR/<mark class="bg-term-green/20 text-[#d6f6e8] px-0.5 rounded print:bg-gray-200 print:text-black">CPR03</mark>      O      1PC
+   TLV
+FARE  F USD     918.00
+TOTALTAX USD    125.67
+TOTAL   USD    1043.67
+/FC TLV LY PAR Q60.00 398.82LY TLV Q60.00 398.82NUC917.64END ROE1.00
+<b class="text-white font-bold print:text-black">FE</b> /C1-2 FARE RESTRICTIONS APPLY <mark class="bg-term-green/20 text-[#d6f6e8] px-0.5 rounded print:bg-gray-200 print:text-black">HELMANS CORP/CPR03</mark>
+FP CASH
+<b class="text-white font-bold print:text-black">FT</b><mark class="bg-[#ffd580]/20 text-[#ffe6ad] px-0.5 rounded print:bg-gray-200 print:text-black">COM12919</mark>
+</pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-panel" id="tab-sabre" role="tabpanel">
+            <div class="bg-term-bg rounded-xl overflow-hidden border border-[#1c2e28] shadow-lg print:border-gray-400">
+                <div class="flex items-center gap-2 px-4 py-2.5 bg-term-bar border-b border-[#1c2e28] print:hidden">
+                    <span class="w-3 h-3 rounded-full bg-[#ff5f56]"></span>
+                    <span class="w-3 h-3 rounded-full bg-[#ffbd2e]"></span>
+                    <span class="w-3 h-3 rounded-full bg-[#27c93f]"></span>
+                    <span class="ms-auto font-mono text-[11px] text-term-dim tracking-wide">1S · SABRE  WP* PRICING</span>
+                </div>
+                <div class="p-4 overflow-x-auto text-left print:text-black print:bg-white" dir="ltr">
+<pre class="m-0 font-mono text-[12.5px] leading-[1.6] text-[#cfe9dd] whitespace-pre min-w-max print:text-black">
+FARE NOT GUARANTEED UNTIL TICKETED
+PQ 1  BRFLEX¥I<mark class="bg-term-green/20 text-[#d6f6e8] px-0.5 rounded print:bg-gray-200 print:text-black">CPR03</mark>¥XC¥RQ
+BASE FARE                  TAXES/FEES/CHARGES          TOTAL
+USD1404.00                   125.07XT         USD1529.07ADT
+VALIDATING CARRIER - LY
+<b class="text-white font-bold print:text-black">CORP ID/ACCNT CODE USED:</b> <mark class="bg-term-green/20 text-[#d6f6e8] px-0.5 rounded print:bg-gray-200 print:text-black">CPR03</mark>
+FARE RESTRICTIONS APPLY/<mark class="bg-term-green/20 text-[#d6f6e8] px-0.5 rounded print:bg-gray-200 print:text-black">HELLMANS CORP</mark>/<mark class="bg-term-green/20 text-[#d6f6e8] px-0.5 rounded print:bg-gray-200 print:text-black">CPR03</mark>
+01 O TLV LY 221M 21MAR 1105  MF3PR/<mark class="bg-term-green/20 text-[#d6f6e8] px-0.5 rounded print:bg-gray-200 print:text-black">CPR03</mark>   21MAR2721MAR27 01P
+<b class="text-white font-bold print:text-black">TOUR CODE-</b><mark class="bg-[#ffd580]/20 text-[#ffe6ad] px-0.5 rounded print:bg-gray-200 print:text-black">COM12919</mark>
+</pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-panel" id="tab-travelport" role="tabpanel">
+            <div class="bg-term-bg rounded-xl overflow-hidden border border-[#1c2e28] shadow-lg print:border-gray-400">
+                <div class="flex items-center gap-2 px-4 py-2.5 bg-term-bar border-b border-[#1c2e28] print:hidden">
+                    <span class="w-3 h-3 rounded-full bg-[#ff5f56]"></span>
+                    <span class="w-3 h-3 rounded-full bg-[#ffbd2e]"></span>
+                    <span class="w-3 h-3 rounded-full bg-[#27c93f]"></span>
+                    <span class="ms-auto font-mono text-[11px] text-term-dim tracking-wide">1G · GALILEO  TKT DISPLAY</span>
+                </div>
+                <div class="p-4 overflow-x-auto text-left print:text-black print:bg-white" dir="ltr">
+<pre class="m-0 font-mono text-[12.5px] leading-[1.6] text-[#cfe9dd] whitespace-pre min-w-max print:text-black">
+TKT: 114 4810 734890       NAME: HELMAN/NOAM
+  OPEN LY 285  H  02JUL TLVFCO 0905 OK HHC2PR/<mark class="bg-term-green/20 text-[#d6f6e8] px-0.5 rounded print:bg-gray-200 print:text-black">CPR03</mark>         1
+FARE USD  548.00 TAX  8.00AP TAX  33.87IL TAX  46.20XT
+TOTAL USD  636.07
+   FARE RESTRICTIONS APPLY/<mark class="bg-term-green/20 text-[#d6f6e8] px-0.5 rounded print:bg-gray-200 print:text-black">HELLMANS COR</mark> / <mark class="bg-term-green/20 text-[#d6f6e8] px-0.5 rounded print:bg-gray-200 print:text-black">CPR03</mark>
+<b class="text-white font-bold print:text-black">TOUR CODE</b> <mark class="bg-[#ffd580]/20 text-[#ffe6ad] px-0.5 rounded print:bg-gray-200 print:text-black">COM12919</mark>
+RLOC <b class="text-white font-bold print:text-black">1G</b> GZV5J6   <b class="text-white font-bold print:text-black">1A</b> Z92UXW
+</pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PAYMENT & EXTRAS -->
+    <section id="payment" class="scroll-mt-36 pt-12">
+        <p class="font-heading font-semibold text-[12px] tracking-[2px] text-brand-deep dark:text-brand uppercase mb-2.5 flex items-center gap-2">
+            <span class="w-6 h-0.5 bg-brand rounded-full"></span>תשלום והערות
+        </p>
+        <h2 class="font-heading text-2xl sm:text-3xl font-bold tracking-tight mb-2 text-ink dark:text-slate-100">אמצעי תשלום ודגשים נוספים</h2>
+        <p class="text-ink-muted dark:text-slate-300 text-base sm:text-lg mb-6 max-w-[64ch] leading-relaxed">
+            ה FOP נשמר כפי שאתם מכניסים אותו היום. שימו לב להבדל בין כרטוס ב <span tabindex="0" class="has-tooltip focus:outline-none focus:ring-2 focus:ring-brand" data-tip="Universal Air Travel Plan כרטיס אשראי תעופתי המקושר לחברה">UATP</span> לבין הסכם עם שובר זיכוי.
+        </p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6 shadow-sm">
+                <h3 class="font-heading font-semibold text-[17px] mb-2 flex items-center gap-2 dark:text-slate-100">
+                    כרטוס עם UATP 
+                    <span class="font-mono text-[11px] font-medium bg-brand-soft dark:bg-slate-700 text-brand-deep dark:text-brand px-2 py-0.5 rounded-md">UATP</span>
+                </h3>
+                <p class="text-ink-muted dark:text-slate-400 text-[14.5px] mb-4 leading-relaxed">
+                    להכניס את ה FOP כפי שעושים היום. יש לוודא שה FT נותר תקין ומכיל את קוד העמלה ואת מספר החברה.
+                </p>
+                <div class="text-[13.5px] text-ink-light dark:text-slate-300 bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-700 px-3 py-2 rounded-lg">
+                    לוודא נוכחות: <code class="font-mono text-[.9em] bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 px-1 rounded mx-0.5 text-brand-deep dark:text-brand">COM11111</code> + מספר החברה
+                </div>
+            </div>
+            
+            <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6 shadow-sm">
+                <h3 class="font-heading font-semibold text-[17px] mb-2 flex items-center gap-2 dark:text-slate-100">
+                    הסכם עם שובר זיכוי 
+                    <span class="font-mono text-[11px] font-medium bg-brand-soft dark:bg-slate-700 text-brand-deep dark:text-brand px-2 py-0.5 rounded-md">CCTP</span>
+                </h3>
+                <p class="text-ink-muted dark:text-slate-400 text-[14.5px] mb-4 leading-relaxed">
+                    ה FOP נותר זהה למה שמוכנס היום, בפורמט הבא:
+                </p>
+                <div class="flex items-center gap-2 flex-wrap sm:flex-nowrap dir-ltr bg-ink dark:bg-slate-900 border border-[#1c2e28] dark:border-slate-700 rounded-lg p-2 mt-auto">
+                    <code class="font-mono text-[13px] text-term-green flex-1 break-all select-all">AGT*CCTP11459000000%COM11111</code>
+                    <button class="copy-btn shrink-0 cursor-pointer border border-term-green/25 bg-term-green/10 text-term-green hover:bg-term-green/20 rounded-md w-8 h-8 flex items-center justify-center transition-colors" aria-label="העתק פקודה">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <h3 class="font-heading font-semibold text-[18px] mt-10 mb-3 text-ink dark:text-slate-100">דגשים לכרטוס ידני / קבוצות</h3>
+        <ul class="grid gap-3">
+            <li class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-4 flex gap-3.5 items-start text-[14.5px] text-ink-muted dark:text-slate-300 shadow-sm">
+                <span class="shrink-0 w-7 h-7 rounded-lg bg-brand-soft dark:bg-slate-700 text-brand-deep dark:text-brand flex items-center justify-center font-heading font-bold text-[13px]">1</span>
+                <div class="leading-relaxed"><b class="text-ink dark:text-slate-100 font-semibold">בתמחור ידני (למניעת <span tabindex="0" class="has-tooltip focus:outline-none focus:ring-2 focus:ring-brand" data-tip="Agency Debit Memo קנס בגין כרטוס שגוי">ADM</span>)</b> עדכנו בשדה <code class="font-mono text-[.88em] bg-slate-100 dark:bg-slate-900 text-brand-deep dark:text-brand px-1.5 py-0.5 rounded mx-0.5">Fare Basis 2</code> את קוד התמחור של החברה, ובשדות <code class="font-mono text-[.88em] bg-slate-100 dark:bg-slate-900 text-brand-deep dark:text-brand px-1.5 py-0.5 rounded mx-0.5">Endorsement</code> ו <code class="font-mono text-[.88em] bg-slate-100 dark:bg-slate-900 text-brand-deep dark:text-brand px-1.5 py-0.5 rounded mx-0.5">Tour Code</code> את מספר החברה.</div>
+            </li>
+            <li class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-4 flex gap-3.5 items-start text-[14.5px] text-ink-muted dark:text-slate-300 shadow-sm">
+                <span class="shrink-0 w-7 h-7 rounded-lg bg-brand-soft dark:bg-slate-700 text-brand-deep dark:text-brand flex items-center justify-center font-heading font-bold text-[13px]">2</span>
+                <div class="leading-relaxed"><b class="text-ink dark:text-slate-100 font-semibold">שימוש במחירון Publish</b> כדי שהכרטיס ייזקף לטובת החברה, עדכנו בשדה <code class="font-mono text-[.88em] bg-slate-100 dark:bg-slate-900 text-brand-deep dark:text-brand px-1.5 py-0.5 rounded mx-0.5">Tour Code</code> את מספר החברה (לדוגמה: <code class="font-mono text-[.88em] bg-slate-100 dark:bg-slate-900 text-brand-deep dark:text-brand px-1.5 py-0.5 rounded mx-0.5">COM12345</code>).</div>
+            </li>
+            <li class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-4 flex gap-3.5 items-start text-[14.5px] text-ink-muted dark:text-slate-300 shadow-sm">
+                <span class="shrink-0 w-7 h-7 rounded-lg bg-brand-soft dark:bg-slate-700 text-brand-deep dark:text-brand flex items-center justify-center font-heading font-bold text-[13px]">3</span>
+                <div class="leading-relaxed"><b class="text-ink dark:text-slate-100 font-semibold">קבוצות</b> יש להוסיף קוד חברה במערכת <code class="font-mono text-[.88em] bg-slate-100 dark:bg-slate-900 text-brand-deep dark:text-brand px-1.5 py-0.5 rounded mx-0.5">GROUPIT</code>.</div>
+            </li>
+            <li class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-4 flex gap-3.5 items-start text-[14.5px] text-ink-muted dark:text-slate-300 shadow-sm">
+                <span class="shrink-0 w-7 h-7 rounded-lg bg-brand-soft dark:bg-slate-700 text-brand-deep dark:text-brand flex items-center justify-center font-heading font-bold text-[13px]">4</span>
+                <div class="leading-relaxed"><b class="text-ink dark:text-slate-100 font-semibold">חובה בכל הזמנה עסקית</b> לעדכן קוד דרוג <code class="font-mono text-[.88em] bg-slate-100 dark:bg-slate-900 text-brand-deep dark:text-brand px-1.5 py-0.5 rounded mx-0.5">DS/DG/DP</code> בצירוף מספר החברה.</div>
+            </li>
+        </ul>
+    </section>
+
+</main>
+
+<button id="btt-btn" class="fixed bottom-6 left-6 z-50 p-3 bg-brand text-white rounded-full shadow-lg hover:bg-brand-deep transition-all opacity-0 pointer-events-none translate-y-4 focus:outline-none focus:ring-2 focus:ring-brand focus:ring-offset-2 dark:focus:ring-offset-slate-900" aria-label="חזור למעלה">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+</button>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        
+        const themeToggle = document.getElementById('theme-toggle');
+        const iconSun = document.getElementById('theme-icon-sun');
+        const iconMoon = document.getElementById('theme-icon-moon');
+        const htmlElement = document.documentElement;
+        
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            htmlElement.classList.add('dark');
+        } else {
+            htmlElement.classList.remove('dark');
+        }
+
+        themeToggle.addEventListener('click', () => {
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                htmlElement.classList.add('dark');
+                localStorage.theme = 'dark';
+            }
+        });
+
+        const printBtn = document.getElementById('print-btn');
+        printBtn.addEventListener('click', () => {
+            window.print();
+        });
+
+        const dynInput = document.getElementById('dyn-input');
+        const dynCodes = document.querySelectorAll('.dyn-code');
+        
+        dynInput.addEventListener('input', (e) => {
+            let val = e.target.value.trim().toUpperCase();
+            const displayVal = val === '' ? 'xxxxx' : val;
+            
+            dynCodes.forEach(codeEl => {
+                codeEl.textContent = displayVal;
+                
+                codeEl.classList.remove('text-[#ffd580]', 'bg-white/10');
+                codeEl.classList.add('text-term-bg', 'bg-term-green');
+                
+                setTimeout(() => {
+                    codeEl.classList.add('text-[#ffd580]', 'bg-white/10');
+                    codeEl.classList.remove('text-term-bg', 'bg-term-green');
+                }, 300);
+            });
+        });
+
+        const bttBtn = document.getElementById('btt-btn');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                bttBtn.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-4');
+                bttBtn.classList.add('opacity-100', 'pointer-events-auto', 'translate-y-0');
+            } else {
+                bttBtn.classList.add('opacity-0', 'pointer-events-none', 'translate-y-4');
+                bttBtn.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0');
+            }
+        });
+
+        bttBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        const TARGET_DATE = new Date("2026-07-01T00:00:00+03:00").getTime();
+        const dEl = document.getElementById("d");
+        const hEl = document.getElementById("h");
+        const mEl = document.getElementById("m");
+        const sEl = document.getElementById("s");
+        const countContainer = document.getElementById("countdown-container");
+        const liveBadge = document.getElementById("live-badge");
+        
+        const pad = (n) => n < 10 ? "0" + n : n;
+        
+        const updateTimer = () => {
+            const diff = TARGET_DATE - Date.now();
+            
+            if (diff <= 0) {
+                if(countContainer) countContainer.style.display = "none";
+                if(liveBadge) {
+                    liveBadge.style.display = "flex";
+                    liveBadge.classList.remove("hidden");
+                }
+                return false; 
+            }
+            
+            const sec = Math.floor(diff / 1000);
+            if(dEl) dEl.textContent = Math.floor(sec / 86400);
+            if(hEl) hEl.textContent = pad(Math.floor((sec % 86400) / 3600));
+            if(mEl) mEl.textContent = pad(Math.floor((sec % 3600) / 60));
+            if(sEl) sEl.textContent = pad(sec % 60);
+            
+            return true;
+        };
+        
+        if (updateTimer()) {
+            const interval = setInterval(() => {
+                if (!updateTimer()) clearInterval(interval);
+            }, 1000);
+        }
+
+        const copyBtns = document.querySelectorAll('.copy-btn');
+        
+        const flashButton = (btn, originalHTML) => {
+            btn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
+            btn.classList.replace('text-term-green', 'text-ink');
+            btn.classList.replace('bg-term-green/10', 'bg-term-green');
+            
+            setTimeout(() => {
+                btn.innerHTML = originalHTML;
+                btn.classList.replace('text-ink', 'text-term-green');
+                btn.classList.replace('bg-term-green', 'bg-term-green/10');
+            }, 1500);
+        };
+
+        const fallbackCopyTextToClipboard = (text, btn, originalHTML) => {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            textArea.style.position = "fixed"; 
+            textArea.style.opacity = "0";
+            document.body.appendChild(textArea);
+            textArea.select();
+            
+            try {
+                const successful = document.execCommand('copy');
+                if(successful) flashButton(btn, originalHTML);
+            } catch (err) {}
+            
+            document.body.removeChild(textArea);
+        };
+
+        copyBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const codeEl = e.currentTarget.parentNode.querySelector('code');
+                if (!codeEl) return;
+                
+                const textToCopy = codeEl.textContent.trim();
+                const originalHTML = btn.innerHTML;
+                
+                if (navigator.clipboard && window.isSecureContext) {
+                    navigator.clipboard.writeText(textToCopy)
+                        .then(() => flashButton(btn, originalHTML))
+                        .catch(() => fallbackCopyTextToClipboard(textToCopy, btn, originalHTML));
+                } else {
+                    fallbackCopyTextToClipboard(textToCopy, btn, originalHTML);
+                }
+            });
+        });
+
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabPanels = document.querySelectorAll('.tab-panel');
+
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const targetId = btn.getAttribute('data-target');
+                
+                tabBtns.forEach(t => t.setAttribute('aria-selected', 'false'));
+                btn.setAttribute('aria-selected', 'true');
+                
+                tabPanels.forEach(p => p.classList.remove('active'));
+                document.getElementById(targetId).classList.add('active');
+            });
+        });
+
+        const navLinks = document.querySelectorAll('nav.jump a');
+        const sections = document.querySelectorAll('section');
+        
+        if ('IntersectionObserver' in window) {
+            const observerOptions = {
+                root: null,
+                rootMargin: '-20% 0px -60% 0px',
+                threshold: 0
+            };
+
+            const observerCallback = (entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.id;
+                        navLinks.forEach(link => {
+                            if (link.getAttribute('href') === `#${id}`) {
+                                link.classList.add('bg-ink', 'text-white', 'dark:bg-brand', 'dark:text-white');
+                                link.classList.remove('text-ink-muted', 'dark:text-slate-300', 'hover:bg-brand-soft', 'dark:hover:bg-slate-800');
+                            } else {
+                                link.classList.remove('bg-ink', 'text-white', 'dark:bg-brand', 'dark:text-white');
+                                link.classList.add('text-ink-muted', 'dark:text-slate-300', 'hover:bg-brand-soft', 'dark:hover:bg-slate-800');
+                            }
+                        });
+                    }
+                });
+            };
+
+            const observer = new IntersectionObserver(observerCallback, observerOptions);
+            sections.forEach(sec => observer.observe(sec));
+        }
+
+    });
+</script>
+</body>
+</html>
